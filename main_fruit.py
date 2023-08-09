@@ -44,6 +44,8 @@ log_dir = model_dir + "/" + file_name + "/log";
 result_dir = model_dir + "/" + file_name + "/result"
 if not os.path.exists(model_dir):   os.mkdir(model_dir)
 if not os.path.exists(dir_name):    os.mkdir(dir_name)
+if not os.path.exists(graphA_dir):   os.mkdir(graphA_dir)
+if not os.path.exists(graphB_dir):   os.mkdir(graphB_dir)
 if not os.path.exists(pth_dir):    os.mkdir(pth_dir)
 if not os.path.exists(npy_dir):    os.mkdir(npy_dir)
 if not os.path.exists(log_dir):    os.mkdir(log_dir)
