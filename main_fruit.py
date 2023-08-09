@@ -17,7 +17,7 @@ from tool import Logger, calc_ari, cmx
 
 
 parser = argparse.ArgumentParser(description='Symbol emergence based on VAE+GMM Example')
-parser.add_argument('--batch-size', type=int, default=512, metavar='B', help='input batch size for training')
+parser.add_argument('--batch-size', type=int, default=256, metavar='B', help='input batch size for training')
 parser.add_argument('--mutual-iter', type=int, default=10, metavar='V', help='number of mutual iteration, default=4')
 parser.add_argument('--vae-iter', type=int, default=100, metavar='V', help='number of VAE iteration, default=100')
 parser.add_argument('--mh-iter', type=int, default=100, metavar='M', help='number of M-H mgmm iteration, default=100')
