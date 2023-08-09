@@ -1,31 +1,41 @@
-import numpy as np
-from sklearn.manifold import TSNE
-from sklearn.decomposition import PCA
-from random import random
+import csv
+import sys
+
 import matplotlib.pyplot as plt
-from scipy.stats import multivariate_normal
+import numpy as np
 import pandas as pd
 import seaborn as sns
+from scipy.stats import multivariate_normal
+from sklearn.decomposition import PCA
+from sklearn.manifold import TSNE
 from sklearn.metrics import confusion_matrix
 
 
+class Logger(object):
+    def __init__(self, filename):
+        self.terminal = sys.stdout
+        self.log = open(filename, "a")
 
-def sample(iteration, z_dim, mu_gmm, lambda_gmm, sigma, sample_num, sample_k, model_dir="./vae_gmm"):
-    """
-    iteration:サンプルするモデルのイテレーション
-    z_dim:VAEの潜在変数の次元数（＝GMMの観測の次元数）
-    mu_gmm:GMMの推定した平均パラメータ
-    lambda_gmm:GMMの推定した精度行列パラメータ
-    sample_num:サンプル数
-    sample_k:サンプルする際のK
-    """
-    sigma_kdd = sigma * np.identity(z_dim, dtype=float) # 対角成分がsigmaでそれ以外は0の分散共分散行列
-    # サンプリングデータを生成
-    #x_nd = np.random.multivariate_normal(mean=mu_gmm[k], cov=lambda_gmm[k], size=sample_num)
-    manual_sample = np.random.multivariate_normal(mean=mu_gmm[sample_k], cov=sigma_kdd, size=sample_num)
-    random_sample = np.random.multivariate_normal(mean=mu_gmm[sample_k], cov=0.2*np.linalg.inv(lambda_gmm[sample_k]), size=sample_num)
+    def write(self, message):
+        self.terminal.write(message)
+        self.log.write(message)
 
-    return manual_sample, random_sample
+    def flush(self):
+        # this flush method is needed for python 3 compatibility.
+        # this handles the flush command by doing nothing.
+        # you might want to specify some extra behavior here.
+        pass
+
+
+def save_toFile(path, file_name, data_saved, rows=0):
+    f = open(path + file_name, 'w')
+    writer = csv.writer(f)
+    if rows == 0:
+        writer.writerow(data_saved)
+    if rows == 1:
+        writer.writerows(data_saved)
+    f.close()
+
 
 def visualize_gmm(iteration, sigma, K, decode_k, sample_num, manual, model_dir, agent):
     mu_gmm_kd, lambda_gmm_kdd, pi_gmm_k = get_param(iteration=iteration, model_dir=model_dir, agent=agent)
