@@ -36,6 +36,8 @@ if args.debug is True: args.vae_iter = 2; args.mh_iter = 2
 file_name = "category40";
 model_dir = "./model";
 dir_name = "./model/" + file_name
+graphA_dir = "./model/" + file_name + "/graphA";
+graphB_dir = "./model/" + file_name + "/graphB"
 pth_dir = "./model/" + file_name + "/pth";
 npy_dir = "./model/" + file_name + "/npy"
 log_dir = model_dir + "/" + file_name + "/log";
